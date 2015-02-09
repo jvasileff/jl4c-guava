@@ -24,6 +24,8 @@ class ImmutableList<out Element>
         delegate = elements;
     }
 
+    // TODO trim, trimtrailing, trimleading, slice, initial, terminal, keys
+
     shared actual
     Element? getFromFirst(Integer index)
         =>  if (0 <= index < delegate.size())
@@ -40,8 +42,64 @@ class ImmutableList<out Element>
             (index >= 0 then index);
 
     shared actual
+    ImmutableList<Element> span(Integer from, Integer to)
+        =>  if (size > 0) then
+                let (end = size - 1)
+                if (from <= to) then
+                    if (from <= 0 && to >= end) then
+                        this
+                    else if (to >= 0 && from <= end) then
+                        ImmutableList(delegate.subList(
+                                largerInteger(from, 0),
+                                smallerInteger(to + 1, size)))
+                    else
+                        emptyImmutableList
+                else
+                    if (end <= 0 && from >= end) then
+                        this.reversed
+                    else if (from >= 0 && to <= end) then
+                        ImmutableList(delegate.subList(
+                                largerInteger(to, 0),
+                                smallerInteger(from + 1, size))
+                                .reverse())
+                    else
+                        emptyImmutableList
+            else
+                emptyImmutableList;
+
+    shared actual
+    ImmutableList<Element> spanFrom(Integer from)
+        =>  if (from < size)
+            then span(from, size - 1)
+            else emptyImmutableList;
+
+    shared actual
+    ImmutableList<Element> spanTo(Integer to)
+        =>  if (to >= 0)
+            then span(0, to)
+            else emptyImmutableList;
+
+    shared actual
+    ImmutableList<Element> measure(Integer from, Integer length)
+        =>  if (length > 0)
+            then span(from, from + length - 1)
+            else emptyImmutableList;
+
+    shared actual
+    List<Integer> keys
+        =>  0:size;
+
+    shared actual
     ImmutableList<Element> clone()
         =>  this;
+
+    shared actual
+    ImmutableList<Element> coalesced
+        =>  this;
+
+    shared actual
+    ImmutableList<Element> reversed
+        =>  ImmutableList(delegate.reverse());
 
     shared actual
     Boolean equals(Object that)
@@ -51,3 +109,11 @@ class ImmutableList<out Element>
     Integer hash
         =>  (super of List<Element>).hash;
 }
+
+ImmutableList<Nothing> emptyImmutableList = ImmutableList({});
+
+Integer smallerInteger(Integer x, Integer y)
+    =>  if (x < y) then x else y;
+
+Integer largerInteger(Integer x, Integer y)
+    =>  if (x > y) then x else y;
