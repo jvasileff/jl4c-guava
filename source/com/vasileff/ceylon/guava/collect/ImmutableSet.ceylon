@@ -29,6 +29,30 @@ class ImmutableSet<out Element>
     }
 
     shared actual
+    Boolean contains(Object element)
+        =>  delegate.contains(element);
+
+    shared actual
+    Integer size
+        =>  delegate.size();
+
+    shared actual
+    Iterator<Element> iterator()
+        =>  CeylonIterator(delegate.iterator());
+
+    shared actual
+    ImmutableSet<Element> clone()
+        =>  this;
+
+    shared actual
+    Boolean equals(Object that)
+        =>  (super of Set<Element>).equals(that);
+
+    shared actual
+    Integer hash
+        =>  (super of Set<Element>).hash;
+
+    shared actual
     ImmutableSet<Element|Other> union<Other>(Set<Other> set)
             given Other satisfies Object
         =>  package.union(this, set);
@@ -47,33 +71,4 @@ class ImmutableSet<out Element>
     ImmutableSet<Element|Other> exclusiveUnion<Other>(Set<Other> set)
             given Other satisfies Object
         =>  package.exclusiveUnion(this, set);
-
-    shared actual
-    Boolean contains(Object element)
-        =>  delegate.contains(element);
-
-    shared actual
-    Boolean empty
-        =>  delegate.empty;
-
-    shared actual Integer size
-        =>  delegate.size();
-
-    shared actual
-    Iterator<Element> iterator()
-        =>  CeylonIterator(delegate.iterator());
-
-    shared actual
-    ImmutableSet<Element> clone()
-        =>  this;
-
-    shared actual
-    Boolean equals(Object that)
-        =>  if (is ImmutableSet<Anything> that)
-            then delegate == that.delegate
-            else false;
-
-    shared actual
-    Integer hash
-        =>  delegate.hash;
 }
