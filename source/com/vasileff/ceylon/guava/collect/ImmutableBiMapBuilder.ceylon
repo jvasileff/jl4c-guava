@@ -4,7 +4,7 @@ import com.google.common.collect {
     }
 }
 
-shared
+shared final
 class ImmutableBiMapBuilder<Key, Item>()
     given Key satisfies Object
     given Item satisfies Object {
@@ -19,8 +19,8 @@ class ImmutableBiMapBuilder<Key, Item>()
 
     shared
     ImmutableBiMapBuilder<Key, Item> putAll({<Key->Item>*} entries) {
-        for (entry in entries) {
-            delegate.put(entry.key, entry.item);
+        for (key->item in entries) {
+            delegate.put(key, item);
         }
         return this;
     }

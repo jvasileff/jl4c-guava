@@ -12,7 +12,7 @@ import java.util {
     JMap=Map
 }
 
-shared
+shared final
 class ImmutableMap<out Key, out Item>
         ({<Key->Item>*}|GuavaImmutableMap<out Key, out Item> entries)
         satisfies Map<Key, Item>

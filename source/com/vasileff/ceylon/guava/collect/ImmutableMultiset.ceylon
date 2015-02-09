@@ -47,7 +47,8 @@ class ImmutableMultiset<out Element>
         =>  CeylonIterator(delegate.iterator());
 
     shared actual
-    Set<[Element, Integer]> entries = object satisfies Set<[Element, Integer]> {
+    Set<[Element, Integer]> entries = object
+            satisfies Set<[Element, Integer]> {
 
         shared actual
         Boolean contains(Object element)

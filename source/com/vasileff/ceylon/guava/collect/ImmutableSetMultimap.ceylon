@@ -22,7 +22,7 @@ import java.util {
     }
 }
 
-shared
+shared final
 class ImmutableSetMultimap<out Key, out Item>
     ({<Key->Item>*}|GuavaImmutableSetMultimap<out Key, out Item> entries)
     satisfies SetMultimap<Key, Item>

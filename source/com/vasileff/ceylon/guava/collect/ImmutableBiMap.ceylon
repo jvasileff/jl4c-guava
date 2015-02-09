@@ -12,7 +12,7 @@ import java.util {
     JMap=Map
 }
 
-shared
+shared final
 throws(`class Exception`, "Throws exception when entries includes
                            duplicate keys or items.")
 class ImmutableBiMap<out Key, out Item>
@@ -21,7 +21,8 @@ class ImmutableBiMap<out Key, out Item>
         given Key satisfies Object
         given Item satisfies Object {
 
-    GuavaImmutableBiMap<Key, Item> delegate;
+    shared
+    GuavaImmutableBiMap<out Key, out Item> delegate;
 
     if (is {<Key->Item>*} entries) {
         value builder = GIBMBuilder<Key, Item>();
@@ -47,7 +48,7 @@ class ImmutableBiMap<out Key, out Item>
         =>  delegate.get(key);
 
     shared actual
-    BiMap<Item,Key> inverse
+    ImmutableBiMap<Item,Key> inverse
         =>  ImmutableBiMap(delegate.inverse());
 
     shared actual

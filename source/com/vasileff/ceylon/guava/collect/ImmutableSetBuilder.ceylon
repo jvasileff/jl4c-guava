@@ -4,19 +4,22 @@ import com.google.common.collect {
     }
 }
 
-shared class ImmutableSetBuilder<Element>()
+shared final
+class ImmutableSetBuilder<Element>()
         given Element satisfies Object {
  
     value delegate = GISBuilder<Element>();
 
-    shared ImmutableSetBuilder<Element> add(Element* elements) {
+    shared
+    ImmutableSetBuilder<Element> add(Element* elements) {
         for (element in elements) {
             delegate.add(element);
         }
         return this;
     }
 
-    shared ImmutableSetBuilder<Element> addAll({Element*}* elements) {
+    shared
+    ImmutableSetBuilder<Element> addAll({Element*}* elements) {
         for (it in elements) {
             for (element in it) {
                 delegate.add(element);
@@ -25,6 +28,7 @@ shared class ImmutableSetBuilder<Element>()
         return this;
     }
 
-    shared ImmutableSet<Element> build()
+    shared
+    ImmutableSet<Element> build()
         =>  ImmutableSet(delegate.build());
 }

@@ -4,16 +4,15 @@ import com.google.common.collect {
     }
 }
 
-shared class ImmutableMultisetBuilder<Element>()
+shared final
+class ImmutableMultisetBuilder<Element>()
         given Element satisfies Object {
 
     value delegate = GIMSBuilder<Element>();
 
     shared
-    ImmutableMultisetBuilder<Element> add(Element* elements) {
-        for (element in elements) {
-            delegate.add(element);
-        }
+    ImmutableMultisetBuilder<Element> add(Element element) {
+        delegate.add(element);
         return this;
     }
 
@@ -24,12 +23,8 @@ shared class ImmutableMultisetBuilder<Element>()
     }
 
     shared
-    ImmutableMultisetBuilder<Element> addAll({Element*}* elements) {
-        for (it in elements) {
-            for (element in it) {
-                delegate.add(element);
-            }
-        }
+    ImmutableMultisetBuilder<Element> addAll({Element*} elements) {
+        elements.each(add);
         return this;
     }
 
@@ -43,5 +38,4 @@ shared class ImmutableMultisetBuilder<Element>()
     shared
     ImmutableMultiset<Element> build()
         => ImmutableMultiset(delegate.build());
-
 }
