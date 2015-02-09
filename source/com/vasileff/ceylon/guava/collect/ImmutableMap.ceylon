@@ -33,19 +33,30 @@ class ImmutableMap<out Key, out Item>
         delegate = entries;
     }
 
-    // TODO more methods?
-
     shared actual
-    Boolean contains(Object key)
-        =>  delegate.containsValue(key);
+    Item? get(Object key)
+        =>  delegate.get(key);
 
     shared actual
     Boolean defines(Object key)
         =>  delegate.containsKey(key);
 
     shared actual
-    Item? get(Object key)
-        =>  delegate.get(key);
+    Integer size
+        =>  delegate.size();
+
+    shared actual
+    ImmutableMap<Key,Item> clone()
+        =>  this;
+
+    shared actual
+    ImmutableSet<Key> keys
+        =>  ImmutableSet(delegate.keySet());
+
+    shared actual
+    Collection<Item> items
+            // TODO implement an ImmutableCollection class
+        =>  CeylonCollection(delegate.values());
 
     shared actual
     Iterator<Key->Item> iterator()
@@ -56,17 +67,15 @@ class ImmutableMap<out Key, out Item>
                 .iterator();
 
     shared actual
-    ImmutableMap<Key,Item> clone()
+    ImmutableMap<Key, Item> coalescedMap
         =>  this;
 
     shared actual
     Boolean equals(Object that)
-        =>  if (is ImmutableMap<Anything, Anything> that)
-            then delegate == that.delegate
-            else false;
+        =>  (super of Map<Key, Item>).equals(that);
 
     shared actual
     Integer hash
-        =>  delegate.hash;
+        =>  (super of Map<Key, Item>).hash;
 
 }
