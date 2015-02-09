@@ -23,11 +23,6 @@ interface ImmutableMultimap<out Key, out Item>
     shared formal
     GuavaImmutableMultimap<out Key, out Item> delegate;
 
-    shared actual default
-    Map<Key, {Item*}> asMap
-        =>  CeylonMap(delegate.asMap()).mapItems((key, items)
-                =>  CeylonIterable<Item>(items));
-
     shared actual
     Boolean defines(Object key)
         =>  delegate.containsKey(key);
