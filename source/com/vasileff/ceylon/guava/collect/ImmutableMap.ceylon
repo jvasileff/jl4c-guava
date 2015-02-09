@@ -55,12 +55,12 @@ class ImmutableMap<out Key, out Item>
 
     shared actual
     Collection<Item> items
-            // TODO implement an ImmutableCollection class
+        //TODO implement an ImmutableCollection class
         =>  CeylonCollection(delegate.values());
 
     shared actual
     Iterator<Key->Item> iterator()
-            // workaround https://github.com/ceylon/ceylon-compiler/issues/2028
+        //workaround https://github.com/ceylon/ceylon-compiler/issues/2028
         =>  let (JMap<out Key, out Item> map = delegate)
             CeylonIterable(map.entrySet())
                 .map((entry) => entry.key->entry.\ivalue)

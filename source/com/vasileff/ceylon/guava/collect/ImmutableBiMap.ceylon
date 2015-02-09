@@ -27,7 +27,7 @@ class ImmutableBiMap<out Key, out Item>
     if (is {<Key->Item>*} entries) {
         value builder = GIBMBuilder<Key, Item>();
         for (entry in entries) {
-            builder.put(entry.key, entry.item); // TODO fails/exception???
+            builder.put(entry.key, entry.item);
         }
         delegate = builder.build();
     }
@@ -36,20 +36,24 @@ class ImmutableBiMap<out Key, out Item>
     }
 
     shared actual
-    Boolean contains(Object entry)
-        =>  delegate.containsValue(entry);
+    Item? get(Object key)
+        =>  delegate.get(key);
 
     shared actual
     Boolean defines(Object key)
         =>  delegate.containsKey(key);
 
     shared actual
-    Item? get(Object key)
-        =>  delegate.get(key);
+    Integer size
+        =>  delegate.size();
 
     shared actual
-    ImmutableBiMap<Item,Key> inverse
-        =>  ImmutableBiMap(delegate.inverse());
+    Map<Key,Item> clone()
+        =>  this;
+
+    shared actual
+    ImmutableSet<Key> keys
+        =>  ImmutableSet(delegate.keySet());
 
     shared actual
     ImmutableSet<Item> items
@@ -64,7 +68,11 @@ class ImmutableBiMap<out Key, out Item>
                 .iterator();
 
     shared actual
-    Map<Key,Item> clone()
+    ImmutableBiMap<Item,Key> inverse
+        =>  ImmutableBiMap(delegate.inverse());
+
+    shared actual
+    ImmutableBiMap<Key, Item> coalescedMap
         =>  this;
 
     shared actual

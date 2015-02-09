@@ -45,40 +45,45 @@ class MutableBiMapWrapper<Key, Item>
         =>  delegate.clear();
 
     shared actual
-    Boolean contains(Object item)
-        =>  delegate.containsValue(item);
-    
+    Item? get(Object key)
+        =>  delegate.get(key);
+
     shared actual
     Boolean defines(Object key)
         =>  delegate.containsKey(key);
-    
+
     shared actual
-    Item? get(Object key)
-        =>  delegate.get(key);
+    Integer size
+        =>  delegate.size();
 
     shared actual
     MutableBiMap<Item, Key> inverse
         =>  package.MutableBiMapWrapper<Item, Key>(delegate.inverse());
 
     shared actual
+    MutableBiMap<Key, Item> clone()
+        =>  HashBiMap<Key, Item>(this);
+
+    //TODO implement "keys"; see ImmutableMap
+
+    shared actual
     Set<Item> items
-            // Would be nice to have mutable view
+        //Would be nice to have mutable view
         =>  CeylonSet(delegate.values());
 
     shared actual
     Iterator<Key->Item> iterator()
-            // workaround https://github.com/ceylon/ceylon-compiler/issues/2028
+            //workaround https://github.com/ceylon/ceylon-compiler/issues/2028
         =>  let (JMap<out Key, out Item> map = delegate)
             CeylonIterable(map.entrySet())
                 .map((entry) => entry.key->entry.\ivalue)
                 .iterator();
 
     shared actual
-    MutableBiMap<Key, Item> clone() {
-        value result = HashBiMap<Key, Item>();
-        result.putAll(this);
-        return result;
-    }
+    Map<Key, Item> coalescedMap
+        //Leave options open and don't return MutableBiMap<Key,Item> since
+        //Guava's HashBiMap actually allows nulls (even though we don't)
+        =>  this;
 
     shared actual
     Boolean equals(Object that)

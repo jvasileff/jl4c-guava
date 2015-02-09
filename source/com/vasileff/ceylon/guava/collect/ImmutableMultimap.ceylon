@@ -1,6 +1,5 @@
 import ceylon.interop.java {
-    CeylonIterable,
-    CeylonMap
+    CeylonIterable
 }
 
 import com.google.common.collect {
@@ -14,7 +13,7 @@ import java.util {
     }
 }
 
-shared
+shared sealed
 interface ImmutableMultimap<out Key, out Item>
     satisfies Multimap<Key, Item>
     given Key satisfies Object
@@ -27,12 +26,11 @@ interface ImmutableMultimap<out Key, out Item>
     Boolean defines(Object key)
         =>  delegate.containsKey(key);
 
-    // FIXME has to be default so subclasses can choose this one?
+    // TODO Ceylon inconvenience - has to be default so subclasses can choose this one?
     shared actual default
     Boolean contains(Object entry)
         =>  if (is Key->Item entry)
-            then delegate.containsEntry(
-                entry.key, entry.item)
+            then delegate.containsEntry(entry.key, entry.item)
             else false;
 
     shared actual

@@ -43,7 +43,8 @@ class ImmutableMultiset<out Element>
     Boolean contains(Object element)
         =>  delegate.contains(element);
 
-    shared actual Iterator<Element> iterator()
+    shared actual
+    Iterator<Element> iterator()
         =>  CeylonIterator(delegate.iterator());
 
     shared actual

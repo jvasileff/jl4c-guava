@@ -9,8 +9,6 @@ interface Multimap<out Key, out Item>
     shared formal
     Map<Key, {Item*}> asMap;
 
-    // FIXME **** contains in ceylon Map is the *entry*, not the item. Check other types.
-
     // from Collection, entry is Key->Item (containsEntry in guava)
     shared actual formal
     Boolean contains(Object entry);

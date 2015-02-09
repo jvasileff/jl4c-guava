@@ -55,6 +55,10 @@ class ImmutableSetMultimap<out Key, out Item>
                 (delegate).get(key));
 
     shared actual
+    Boolean contains(Object entry)
+        =>  (super of ImmutableMultimap<Key, Item>).contains(entry);
+
+    shared actual
     Set<<Key->Item>|Other> union<Other>(Set<Other> set)
             given Other satisfies Object
         =>  package.union(this, set);
@@ -88,9 +92,5 @@ class ImmutableSetMultimap<out Key, out Item>
     shared actual
     Integer hash
         =>  (super of Set<Key->Item>).hash;
-
-    shared actual
-    Boolean contains(Object entry)
-        =>  (super of ImmutableMultimap<Key, Item>).contains(entry);
 
 }
