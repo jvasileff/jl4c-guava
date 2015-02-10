@@ -49,7 +49,7 @@ class ImmutableMultiset<out Element>
 
     shared actual
     Set<[Element, Integer]> entries = object
-            satisfies Set<[Element, Integer]> {
+            satisfies AbstractSet<[Element, Integer]> {
 
         shared actual
         Boolean contains(Object element)
@@ -58,34 +58,14 @@ class ImmutableMultiset<out Element>
                 else false;
 
         shared actual
-        ImmutableSet<[Element, Integer]|Other> union<Other>(Set<Other> set)
-                given Other satisfies Object
-            =>  package.union(this, set);
-    
-        shared actual
-        ImmutableSet<[Element, Integer]&Other> intersection<Other>(Set<Other> set)
-                given Other satisfies Object
-            =>  package.intersection(this, set);
-    
-        shared actual
-        ImmutableSet<[Element, Integer]> complement<Other>(Set<Other> set)
-                given Other satisfies Object
-            =>  package.complement(this, set);
-    
-        shared actual
-        ImmutableSet<[Element, Integer]|Other> exclusiveUnion<Other>(Set<Other> set)
-                given Other satisfies Object
-            =>  package.exclusiveUnion(this, set);
+        Integer size
+            =>  elements.size;
 
         shared actual
         Iterator<[Element, Integer]> iterator()
             =>  elements
                     .map((element) => [element, occurences(element)])
                     .iterator();
-
-        shared actual
-        ImmutableSet<[Element, Integer]> clone()
-            =>  ImmutableSet(this);
 
         shared actual
         Boolean equals(Object that)
