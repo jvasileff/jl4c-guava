@@ -91,11 +91,11 @@ class HashMultimap<Key, Item>
                 .iterator();
 
     shared actual
-    Set<Key> keySet
+    Set<Key> keys
         =>  CeylonSet(delegate.keySet());
 
     shared actual
-    Multiset<Key> keys // TODO MutableMultiset
+    Multiset<Key> keyMultiset // TODO MutableMultiset
         =>  nothing; // delegate.keys(); // TODO need a MultisetWrapper class
 
     shared actual

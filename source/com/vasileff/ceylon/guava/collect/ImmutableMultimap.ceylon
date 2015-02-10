@@ -42,11 +42,11 @@ interface ImmutableMultimap<out Key, out Item>
         =>  CeylonCollection(delegate.values());
 
     shared actual
-    ImmutableMultiset<Key> keys
+    ImmutableMultiset<Key> keyMultiset
         =>  ImmutableMultiset(delegate.keys());
 
     shared actual
-    ImmutableSet<Key> keySet
+    ImmutableSet<Key> keys
         =>  ImmutableSet(delegate.keySet());
 
     shared actual

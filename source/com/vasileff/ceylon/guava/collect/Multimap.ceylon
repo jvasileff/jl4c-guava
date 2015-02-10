@@ -21,6 +21,7 @@ interface Multimap<out Key, out Item>
     shared formal
     Boolean containsItem(Object item);
 
+    // TODO consider returning nulls, unlike guava?
     "lazy view ** Breaks from Correspondence in that it
      returns an empty collection, not null, on key not found"
     shared actual formal
@@ -29,23 +30,23 @@ interface Multimap<out Key, out Item>
     shared actual formal
     Boolean empty;
 
-    // FIXME From Correspondence *** Guava has keys and KeySet, which should this be???
+    // TODO document difference w/Guava (keys are set, not multiset)
+    "Returns a view collection of all distinct keys contained in this multimap."
+    shared actual formal
+    Set<Key> keys;
+
     "Returns a view collection containing the key from each key-value
      pair in this multimap, without collapsing duplicates."
-    shared actual formal
-    Multiset<Key> keys;
-
-    "Returns a view collection of all distinct keys contained in this multimap."
     shared formal
-    Set<Key> keySet;
+    Multiset<Key> keyMultiset;
 
+    // TODO document that this is not parallel with keys (items is flattened)
     "Returns a view collection containing the value from each key-value pair
      contained in this multimap, without collapsing duplicates
      (so values().size() == size())."
     shared formal
     Collection<Item> items; // values() in guava
 
-    
     //shared actual
     //Iterator<Key->Item> iterator() => nothing;
 
