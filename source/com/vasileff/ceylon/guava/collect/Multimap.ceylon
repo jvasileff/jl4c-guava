@@ -1,7 +1,7 @@
 shared
 interface Multimap<out Key, out Item> 
         satisfies Collection<Key->Item> &
-                  Correspondence<Object, {Item*}>
+                  Correspondence<Object, Collection<Item>>
         given Key satisfies Object {
 
     "Returns a view of this multimap as a Map from each distinct
@@ -24,7 +24,7 @@ interface Multimap<out Key, out Item>
     "lazy view ** Breaks from Correspondence in that it
      returns an empty collection, not null, on key not found"
     shared actual formal
-    {Item*} get(Object key);
+    Collection<Item> get(Object key);
 
     shared actual formal
     Boolean empty;
@@ -43,7 +43,7 @@ interface Multimap<out Key, out Item>
      contained in this multimap, without collapsing duplicates
      (so values().size() == size())."
     shared formal
-    {Item*} items; // values() in guava
+    Collection<Item> items; // values() in guava
 
     
     //shared actual

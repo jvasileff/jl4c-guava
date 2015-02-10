@@ -38,8 +38,8 @@ interface ImmutableMultimap<out Key, out Item>
         =>  delegate.containsValue(item);
 
     shared actual
-    {Item*} items
-        =>  CeylonIterable(delegate.values());
+    Collection<Item> items
+        =>  CeylonCollection(delegate.values());
 
     shared actual
     ImmutableMultiset<Key> keys
