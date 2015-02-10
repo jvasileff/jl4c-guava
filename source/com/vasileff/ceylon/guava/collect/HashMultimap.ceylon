@@ -95,8 +95,9 @@ class HashMultimap<Key, Item>
         =>  CeylonSet(delegate.keySet());
 
     shared actual
-    Multiset<Key> keyMultiset // TODO MutableMultiset
-        =>  nothing; // delegate.keys(); // TODO need a MultisetWrapper class
+    Multiset<Key> keyMultiset
+        // TODO MutableMultiset
+        =>  MultisetWrapper(delegate.keys());
 
     shared actual
     Boolean put(Key key, Item item)

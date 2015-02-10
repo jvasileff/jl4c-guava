@@ -1,3 +1,35 @@
+interface AbstractSet<Element>
+        satisfies Set<Element>
+        given Element satisfies Object {
+
+    shared actual formal
+    Integer size;
+
+    shared actual default
+    ImmutableSet<Element|Other> union<Other>(Set<Other> set)
+            given Other satisfies Object
+        =>  package.union(this, set);
+
+    shared actual default
+    ImmutableSet<Element&Other> intersection<Other>(Set<Other> set)
+            given Other satisfies Object
+        =>  package.intersection(this, set);
+
+    shared actual default
+    ImmutableSet<Element> complement<Other>(Set<Other> set)
+            given Other satisfies Object
+        =>  package.complement(this, set);
+
+    shared actual default
+    ImmutableSet<Element|Other> exclusiveUnion<Other>(Set<Other> set)
+            given Other satisfies Object
+        =>  package.exclusiveUnion(this, set);
+
+    shared actual default
+    ImmutableSet<Element> clone()
+        =>  ImmutableSet(this);
+}
+
 ImmutableSet<First|Second> union<First, Second>
         (Set<First> first, Set<Second> second)
         given First satisfies Object
