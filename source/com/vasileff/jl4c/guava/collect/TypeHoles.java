@@ -1,4 +1,4 @@
-package com.vasileff.ceylon.guava.collect;
+package com.vasileff.jl4c.guava.collect;
 
 class TypeHoles {
 	/*

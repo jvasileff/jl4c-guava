@@ -3,7 +3,7 @@ import com.google.common.collect {
         GILMMBuilder=Builder
     }
 }
-import com.vasileff.ceylon.guava.collect {
+import com.vasileff.jl4c.guava.collect {
     TypeHoles {
         unsafeCast
     }

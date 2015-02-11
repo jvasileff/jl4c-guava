@@ -6,7 +6,7 @@ import ceylon.interop.java {
 import com.google.common.collect {
     GuavaListMultimap=ListMultimap
 }
-import com.vasileff.ceylon.guava.collect {
+import com.vasileff.jl4c.guava.collect {
     TypeHoles {
         unsafeCast
     }
