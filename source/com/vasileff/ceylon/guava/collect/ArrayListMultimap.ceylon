@@ -2,12 +2,13 @@ import ceylon.interop.java {
     CeylonMap,
     CeylonSet,
     CeylonIterable,
-    JavaIterable
+    JavaIterable,
+    CeylonList
 }
 
 import com.google.common.collect {
-    GuavaHashMultimap=HashMultimap {
-        ghmmCreate=create
+    GuavaArrayListMultimap=ArrayListMultimap {
+        galmmCreate=create
     }
 }
 import com.vasileff.ceylon.guava.collect {
@@ -17,7 +18,7 @@ import com.vasileff.ceylon.guava.collect {
 }
 
 import java.util {
-    JSet=Set,
+    JList=List,
     JCollection=Collection,
     JMap=Map {
         JMapEntry=Entry
@@ -25,15 +26,15 @@ import java.util {
 }
 
 shared
-class HashMultimap<Key, Item>
-        satisfies MutableSetMultimap<Key, Item>
+class ArrayListMultimap<Key, Item>
+        satisfies MutableListMultimap<Key, Item>
         given Key satisfies Object
         given Item satisfies Object {
 
-    value delegate = ghmmCreate<Key, Item>();
+    value delegate = galmmCreate<Key, Item>();
 
     shared
-    new HashMultimap(entries = {}) {
+    new ArrayListMultimap(entries = {}) {
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);
@@ -41,11 +42,11 @@ class HashMultimap<Key, Item>
     }
 
     shared actual
-    Map<Key,Set<Item>> asMap
+    Map<Key,List<Item>> asMap
         =>  CeylonMap(delegate.asMap()).mapItems((key, items)
-                =>  // Gauva apidocs guarantee items will be a JSet
-                    let (itemsSet = unsafeCast<JSet<out Item>>(items))
-                    CeylonSet<Item>(itemsSet));
+                =>  // Gauva apidocs guarantee items will be a JList
+                    let (itemsList = unsafeCast<JList<out Item>>(items))
+                    CeylonList<Item>(itemsList));
 
     shared actual
     void clear()
@@ -70,10 +71,10 @@ class HashMultimap<Key, Item>
         =>  delegate.empty;
 
     shared actual
-    Set<Item> get(Object key)
+    List<Item> get(Object key)
         // Stupid google. Get takes K, not Object
-        =>  CeylonSet(unsafeCast
-                <GuavaHashMultimap<Object, out Item>>
+        =>  CeylonList(unsafeCast
+                <GuavaArrayListMultimap<Object, out Item>>
                 (delegate).get(key));
 
     shared actual
@@ -125,12 +126,12 @@ class HashMultimap<Key, Item>
         =>  delegate.remove(key, item);
 
     shared actual
-    Set<Item> removeAll(Key key)
-        =>  CeylonSet(delegate.removeAll(key));
+    List<Item> removeAll(Key key)
+        =>  CeylonList(delegate.removeAll(key));
 
     shared actual
-    Set<Item> replaceItems(Key key, {Item*} items)
-        =>  CeylonSet(delegate.replaceValues(
+    List<Item> replaceItems(Key key, {Item*} items)
+        =>  CeylonList(delegate.replaceValues(
                 key, JavaIterable(items)));
 
     shared actual
@@ -141,31 +142,13 @@ class HashMultimap<Key, Item>
     HashMultimap<Key, Item> clone()
         =>  package.HashMultimap<Key, Item> { *this };
 
-    shared actual
-    Boolean equals(Object that)
-        =>  (super of Set<Key->Item>).equals(that);
+//  FIXME ceylon list like equals/hash
+//    shared actual
+//    Boolean equals(Object that)
+//        =>  (super of List<Key->Item>).equals(that);
+//
+//    shared actual
+//    Integer hash
+//        =>  (super of List<Key->Item>).hash;
 
-    shared actual
-    Integer hash
-        =>  (super of Set<Key->Item>).hash;
-
-    shared actual
-    Set<<Key->Item>|Other> union<Other>(Set<Other> set)
-            given Other satisfies Object
-        =>  package.union(this, set);
-
-    shared actual
-    Set<<Key->Item>&Other> intersection<Other>(Set<Other> set)
-            given Other satisfies Object
-        =>  package.intersection(this, set);
-
-    shared actual
-    Set<Key->Item> complement<Other>(Set<Other> set)
-            given Other satisfies Object
-        =>  package.complement(this, set);
-
-    shared actual
-    Set<<Key->Item>|Other> exclusiveUnion<Other>(Set<Other> set)
-            given Other satisfies Object
-        =>  package.exclusiveUnion(this, set);
 }

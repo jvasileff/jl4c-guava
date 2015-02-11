@@ -1,6 +1,5 @@
 import ceylon.interop.java {
-    CeylonMap,
-    CeylonIterable
+    CeylonMap
 }
 
 import com.google.common.collect {
@@ -17,7 +16,8 @@ import com.vasileff.ceylon.guava.collect {
 shared final
 class ImmutableListMultimap<out Key, out Item>
     ({<Key->Item>*}|GuavaImmutableListMultimap<out Key, out Item> entries)
-    satisfies ListMultimap<Key, Item> & ImmutableMultimap<Key, Item>
+    satisfies ListMultimap<Key, Item> &
+              ImmutableMultimap<Key, Item>
     given Key satisfies Object
     given Item satisfies Object {
 
@@ -36,9 +36,9 @@ class ImmutableListMultimap<out Key, out Item>
     }
 
     shared actual
-    Map<Key, {Item*}> asMap
+    Map<Key, Collection<Item>> asMap
         =>  CeylonMap(delegate.asMap()).mapItems((key, items)
-                =>  CeylonIterable<Item>(items));
+                =>  CeylonCollection<Item>(items));
 
     shared actual
     ImmutableList<Item> get(Object key)

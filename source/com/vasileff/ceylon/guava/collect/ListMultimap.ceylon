@@ -4,10 +4,12 @@ interface ListMultimap<out Key, out Item>
         given Key satisfies Object
         given Item satisfies Object {
 
-    shared actual formal
-    Map<Key,{Item*}> asMap;
+    //Note: guava has "Collection<Map.Entry<K,V>> entries()" method
+    //instead, we are a  a "Collection<Key->Item>"
 
-    //Multimap returns `{Item*}`
+    shared actual formal
+    Map<Key, Collection<Item>> asMap;
+
     //Note: document break from Correspondence in that we never return null 
     shared actual formal
     List<Item> get(Object key);
