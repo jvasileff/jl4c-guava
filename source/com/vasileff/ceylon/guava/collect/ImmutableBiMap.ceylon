@@ -1,15 +1,7 @@
-import ceylon.interop.java {
-    CeylonIterable
-}
-
 import com.google.common.collect {
     GuavaImmutableBiMap=ImmutableBiMap {
         GIBMBuilder=Builder
     }
-}
-
-import java.util {
-    JMap=Map
 }
 
 shared final
@@ -21,7 +13,7 @@ class ImmutableBiMap<out Key, out Item>
         given Key satisfies Object
         given Item satisfies Object {
 
-    shared
+    shared actual
     GuavaImmutableBiMap<out Key, out Item> delegate;
 
     if (is {<Key->Item>*} entries) {
@@ -36,22 +28,6 @@ class ImmutableBiMap<out Key, out Item>
     }
 
     shared actual
-    Item? get(Object key)
-        =>  delegate.get(key);
-
-    shared actual
-    Boolean defines(Object key)
-        =>  delegate.containsKey(key);
-
-    shared actual
-    Integer size
-        =>  delegate.size();
-
-    shared actual
-    Map<Key,Item> clone()
-        =>  this;
-
-    shared actual
     ImmutableSet<Key> keys
         =>  ImmutableSet(delegate.keySet());
 
@@ -60,19 +36,11 @@ class ImmutableBiMap<out Key, out Item>
         =>  ImmutableSet(delegate.values());
 
     shared actual
-    Iterator<Key->Item> iterator()
-            // workaround https://github.com/ceylon/ceylon-compiler/issues/2028
-        =>  let (JMap<out Key, out Item> map = delegate)
-            CeylonIterable(map.entrySet())
-                .map((entry) => entry.key->entry.\ivalue)
-                .iterator();
-
-    shared actual
     ImmutableBiMap<Item,Key> inverse
         =>  ImmutableBiMap(delegate.inverse());
 
     shared actual
-    ImmutableBiMap<Key, Item> coalescedMap
+    ImmutableBiMap<Key,Item> clone()
         =>  this;
 
     shared actual

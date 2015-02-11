@@ -1,6 +1,9 @@
 import ceylon.collection {
     MutableMap
 }
+import com.google.common.collect {
+    GuavaBiMap=BiMap
+}
 
 shared
 interface MutableBiMap<Key, Item>
@@ -11,18 +14,28 @@ interface MutableBiMap<Key, Item>
         given Item satisfies Object {
 
     shared actual formal
-    Item? put(Key key, Item item);
+    GuavaBiMap<Key, Item> delegate;
 
-    shared actual formal
-    Item? forcePut(Key key, Item item);
+    shared actual
+    Item? put(Key key, Item item)
+        =>  delegate.put(key, item);
 
-    shared actual formal
-    Item? remove(Key key);
+    shared actual
+    Item? forcePut(Key key, Item item)
+        =>  delegate.forcePut(key, item);
+
+    shared actual
+    Item? remove(Key key)
+        =>  delegate.remove(key);
+
+    shared actual
+    void clear()
+        => delegate.clear();
+
+    shared actual
+    MutableBiMap<Item, Key> inverse
+        =>  MutableBiMapWrapper(delegate.inverse());
 
     shared actual formal
     MutableBiMap<Key, Item> clone();
-
-    shared actual formal
-    MutableBiMap<Item, Key> inverse;
-
 }

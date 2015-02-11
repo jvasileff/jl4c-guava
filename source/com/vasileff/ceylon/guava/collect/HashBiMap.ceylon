@@ -6,49 +6,30 @@ import com.google.common.collect {
 
 shared final
 class HashBiMap<Key, Item>
-        (entries={})
         satisfies MutableBiMap<Key, Item>
         given Key satisfies Object
         given Item satisfies Object {
 
-    MutableBiMap<Key, Item> delegate;
+    shared actual
+    GuavaHashBiMap<Key, Item> delegate = ghbmCreate<Key, Item>();
 
-    //see https://github.com/ceylon/ceylon-spec/issues/1227
     shared
-    //new HashBiMap(entries={}) {
+    new HashBiMap(entries={}) {
         {<Key->Item>*} entries;
-        this.delegate = MutableBiMapWrapper(ghbmCreate<Key, Item>());
         for (key->item in entries) {
             delegate.put(key, item);
         }
-    //}
+    }
 
-    clear() => delegate.clear();
+    shared actual
+    MutableBiMap<Key, Item> clone()
+        =>  HashBiMap(this);
 
-    clone() => delegate.clone();
+    shared actual
+    Boolean equals(Object other)
+        =>  (super of Map<Key, Item>).equals(other);
 
-    coalescedMap => delegate.coalescedMap;
-
-    defines(Object key) => delegate.defines(key);
-
-    forcePut(Key key, Item item) => delegate.forcePut(key, item);
-
-    get(Object key) => delegate.get(key);
-
-    inverse => delegate.inverse;
-
-    items => delegate.items;
-
-    iterator() => delegate.iterator();
-
-    put(Key key, Item item) => delegate.put(key, item);
-
-    remove(Key key) => delegate.remove(key);
-
-    size => delegate.size;
-
-    equals(Object other) => delegate.equals(other);
-
-    hash => delegate.hash;
-
+    shared actual
+    Integer hash
+        =>  (super of Map<Key, Item>).hash;
 }
