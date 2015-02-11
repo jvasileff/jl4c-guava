@@ -1,5 +1,5 @@
-shared interface
-MultimapMutator<in Key, in Item>
+shared
+interface MultimapMutator<in Key, in Item>
         satisfies Multimap<Object, Anything>
         given Key satisfies Object {
 
@@ -25,8 +25,4 @@ MultimapMutator<in Key, in Item>
 
     shared formal
     Collection<Anything> replaceItems(Key key, {Item*} items);
-
-    "Returns the number of key-value pairs in this multimap."
-    shared actual formal
-    Integer size;
 }

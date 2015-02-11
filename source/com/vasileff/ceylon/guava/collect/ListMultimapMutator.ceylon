@@ -8,5 +8,4 @@ interface ListMultimapMutator<in Key, in Item>
 
     shared actual formal
     List<Object> replaceItems(Key key, {Item*} items);
-
 }

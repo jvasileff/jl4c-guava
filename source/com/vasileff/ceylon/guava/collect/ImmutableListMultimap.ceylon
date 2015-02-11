@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-    CeylonMap
-}
-
 import com.google.common.collect {
     GuavaImmutableListMultimap=ImmutableListMultimap {
         GILMMBuilder=Builder
@@ -34,11 +30,6 @@ class ImmutableListMultimap<out Key, out Item>
     else {
         delegate = entries;
     }
-
-    shared actual
-    Map<Key, Collection<Item>> asMap
-        =>  CeylonMap(delegate.asMap()).mapItems((key, items)
-                =>  CeylonCollection<Item>(items));
 
     shared actual
     ImmutableList<Item> get(Object key)

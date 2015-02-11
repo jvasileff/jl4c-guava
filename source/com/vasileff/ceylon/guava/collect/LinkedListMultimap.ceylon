@@ -1,21 +1,24 @@
 import com.google.common.collect {
-    GuavaArrayListMultimap=ArrayListMultimap {
-        galmmCreate=create
+    GuavaLinkedListMultimap=LinkedListMultimap {
+        gllmmCreate=create
     }
 }
 
 shared
-class ArrayListMultimap<Key, Item>
-        satisfies MutableListMultimap<Key, Item>
+class LinkedListMultimap<Key, Item>
+        satisfies Multimap<Key, Item> &
+                  ListMultimap<Key, Item> &
+                  MutableMultimap<Key, Item> &
+                  MutableListMultimap<Key, Item>
         given Key satisfies Object
         given Item satisfies Object {
 
     shared actual
-    GuavaArrayListMultimap<Key, Item> delegate =
-            galmmCreate<Key, Item>();
+    GuavaLinkedListMultimap<Key, Item> delegate =
+            gllmmCreate<Key, Item>();
 
     shared
-    new ArrayListMultimap(entries = {}) {
+    new LinkedListMultimap(entries = {}) {
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);
@@ -23,8 +26,8 @@ class ArrayListMultimap<Key, Item>
     }
 
     shared actual
-    ArrayListMultimap<Key, Item> clone()
-        =>  package.ArrayListMultimap<Key, Item> { *this };
+    LinkedListMultimap<Key, Item> clone()
+        =>  package.LinkedListMultimap<Key, Item> { *this };
 
 //  FIXME ceylon list like equals/hash
 //    shared actual

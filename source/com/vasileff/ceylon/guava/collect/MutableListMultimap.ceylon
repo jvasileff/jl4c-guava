@@ -1,3 +1,11 @@
+import ceylon.interop.java {
+    CeylonList,
+    JavaIterable
+}
+import com.google.common.collect {
+    GuavaListMultimap=ListMultimap
+}
+
 shared
 interface MutableListMultimap<Key, Item>
         satisfies ListMultimap<Key, Item> &
@@ -7,8 +15,14 @@ interface MutableListMultimap<Key, Item>
         given Item satisfies Object {
 
     shared actual formal
-    List<Item> removeAll(Key key);
+    GuavaListMultimap<Key, Item> delegate;
 
-    shared actual formal
-    List<Item> replaceItems(Key key, {Item*} items);
+    shared actual
+    List<Item> removeAll(Key key)
+        =>  CeylonList(delegate.removeAll(key));
+
+    shared actual
+    List<Item> replaceItems(Key key, {Item*} items)
+        =>  CeylonList(delegate.replaceValues(
+                key, JavaIterable(items)));
 }

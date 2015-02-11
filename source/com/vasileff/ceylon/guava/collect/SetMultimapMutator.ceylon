@@ -4,7 +4,7 @@ interface SetMultimapMutator<in Key, in Item>
         given Key satisfies Object
         given Item satisfies Object {
 
-    // TODO document that sets in Ceylon cannot hold null,
+    // Sets in Ceylon cannot hold null,
     // therefore, Item satisfies Object
 
     shared actual formal
@@ -12,5 +12,4 @@ interface SetMultimapMutator<in Key, in Item>
 
     shared actual formal
     Set<Object> replaceItems(Key key, {Item*} items);
-
 }
