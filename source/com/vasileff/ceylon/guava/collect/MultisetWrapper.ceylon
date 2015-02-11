@@ -6,7 +6,8 @@ import ceylon.interop.java {
     CeylonIterator
 }
 
-class MultisetWrapper<out Element>(GuavaMultiset<out Element> delegate)
+class MultisetWrapper<out Element>
+        (GuavaMultiset<out Element> delegate)
         satisfies Multiset<Element>
         given Element satisfies Object {
 

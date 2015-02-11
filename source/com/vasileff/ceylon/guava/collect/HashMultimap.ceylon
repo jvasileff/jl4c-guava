@@ -60,10 +60,12 @@ class HashMultimap<Key, Item>
             then delegate.containsEntry(entry.key, entry.item)
             else false;
 
-    shared actual Boolean containsItem(Object item)
+    shared actual
+    Boolean containsItem(Object item)
         =>  delegate.containsValue(item);
 
-    shared actual Boolean defines(Object key)
+    shared actual
+    Boolean defines(Object key)
         =>  delegate.containsKey(key);
 
     shared actual
@@ -142,10 +144,12 @@ class HashMultimap<Key, Item>
     HashMultimap<Key, Item> clone()
         =>  package.HashMultimap<Key, Item> { *this };
 
-    shared actual Boolean equals(Object that)
+    shared actual
+    Boolean equals(Object that)
         =>  (super of Set<Key->Item>).equals(that);
 
-    shared actual Integer hash
+    shared actual
+    Integer hash
         =>  (super of Set<Key->Item>).hash;
 
     shared actual
