@@ -1,3 +1,7 @@
+import ceylon.interop.java {
+    JavaComparator
+}
+
 import com.google.common.collect {
     GuavaImmutableSetMultimap=ImmutableSetMultimap {
         GISMMBuilder=Builder

@@ -1,5 +1,6 @@
 import ceylon.interop.java {
-    CeylonIterable
+    CeylonIterable,
+    CeylonCollection
 }
 
 import com.google.common.collect {
