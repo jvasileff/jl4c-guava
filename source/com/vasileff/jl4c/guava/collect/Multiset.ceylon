@@ -27,7 +27,7 @@ interface Multiset<out Element>
 
     "Returns the number of occurrences of an element in this multiset"
     shared
-    Integer occurences(Object element)
+    Integer occurrences(Object element)
         =>  delegate.count(element);
 
     "Returns the set of distinct elements contained in this multiset."
@@ -48,7 +48,7 @@ interface Multiset<out Element>
         shared actual
         Boolean contains(Object element)
             =>  if (is [Element, Integer] element)
-                then occurences(element[0]) == element[1]
+                then occurrences(element[0]) == element[1]
                 else false;
 
         shared actual
@@ -58,7 +58,7 @@ interface Multiset<out Element>
         shared actual
         Iterator<[Element, Integer]> iterator()
             =>  elements
-                    .map((element) => [element, occurences(element)])
+                    .map((element) => [element, occurrences(element)])
                     .iterator();
 
         shared actual
