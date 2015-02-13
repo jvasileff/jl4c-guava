@@ -14,26 +14,17 @@
     <property name="out.repo" location="${basedir}/modules"/>
     <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
 
-    <!-- modules jvm -->
+    <!-- modules -->
     <moduleset id="modules.jvm">
         <module name="com.vasileff.jl4c.guava"/>
     </moduleset>
 
-    <!-- modules js -->
-    <moduleset id="modules.js"/>
-
-    <target name="all" depends="compile, compile-js, doc"/>
+    <target name="all" depends="compile, doc"/>
 
     <target name="compile">
         <ceylon-compile encoding="${source.encoding}" out="${out.repo}">
             <moduleset refid="modules.jvm"/>
         </ceylon-compile>
-    </target>
-
-    <target name="compile-js">
-        <ceylon-compile-js encoding="${source.encoding}" out="${out.repo}">
-            <moduleset refid="modules.js"/>
-        </ceylon-compile-js>
     </target>
 
     <target name="doc">
@@ -65,13 +56,6 @@
                 pass="${herd.pass}">
             <moduleset refid="modules.jvm"/>
         </ceylon-compile>
-        <ceylon-compile-js
-                encoding="${source.encoding}"
-                out="${herd.repo}"
-                user="${herd.user}"
-                pass="${herd.pass}">
-            <moduleset refid="modules.js"/>
-        </ceylon-compile-js>
         <ceylon-doc
                 encoding="${source.encoding}"
                 includesourcecode="true"
