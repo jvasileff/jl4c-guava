@@ -8,7 +8,8 @@ import ceylon.interop.java {
 
 shared
 interface Multiset<out Element>
-        satisfies Collection<Element>
+        satisfies Collection<Element> &
+                  Correspondence<Object, Integer>
         given Element satisfies Object {
 
     shared formal
@@ -29,6 +30,29 @@ interface Multiset<out Element>
     shared
     Integer occurrences(Object element)
         =>  delegate.count(element);
+
+    "Returns the number of occurrences of an element in this multiset, or
+     `null` if the element is not contained in this multiset."
+    shared actual
+    Integer? get(Object element)
+        =>  let (num = occurrences(element))
+            if (num == 0) then null else num;
+
+    shared actual
+    Boolean defines(Object element)
+        =>  contains(element);
+
+    shared actual
+    Boolean definesEvery({Object*} keys)
+        =>  containsEvery(keys);
+
+    shared actual
+    Boolean definesAny({Object*} keys)
+        =>  containsAny(keys);
+
+    shared actual
+    Category<Object> keys
+        => this;
 
     "Returns the set of distinct elements contained in this multiset."
     shared
