@@ -15,16 +15,18 @@ interface Multiset<out Element>
     shared formal
     GuavaMultiset<out Element> delegate;
 
-    "Determines whether this multiset contains the specified element"
+    "Returns true if either 1) this multiset contains the specified
+     element, or 2) if the parameter is of the form `element->Integer`,
+     and this multiset contains the specified element with the given
+     number of occurrences."
     shared actual
     Boolean contains(Object element)
-        =>  delegate.contains(element);
-
-    "Returns `true` if this multiset contains at least one occurrence of
-     each given value, or `false` otherwise."
-    shared actual default
-    Boolean containsEvery({Object*} elements)
-        =>  super.containsEvery(elements);
+        =>  if (delegate.contains(element)) then
+                true
+            else if (is Object->Integer element) then
+                element.item == occurrences(element.key)
+            else
+                false;
 
     "Returns the number of occurrences of an element in this multiset"
     shared
@@ -40,23 +42,11 @@ interface Multiset<out Element>
 
     shared actual
     Boolean defines(Object element)
-        =>  contains(element);
-
-    shared actual
-    Boolean definesEvery({Object*} keys)
-        =>  containsEvery(keys);
-
-    shared actual
-    Boolean definesAny({Object*} keys)
-        =>  containsAny(keys);
-
-    shared actual
-    Category<Object> keys
-        => this;
+        =>  delegate.contains(element);
 
     "Returns the set of distinct elements contained in this multiset."
-    shared
-    Set<Element> elements
+    shared actual
+    Set<Element> keys
         =>  CeylonSet<Element>(delegate.elementSet());
 
     shared actual
@@ -66,6 +56,9 @@ interface Multiset<out Element>
     "Returns a view of the contents of this multiset, grouped into Tuples,
      each providing an element of the multiset and the count of that element."
     shared
+    // TODO consider Set<Element->Integer>, Map<Element,Integer>, or even
+    // Set<Multiset.Entry<Element>>. The last one could support live views
+    // as Guava's Entry does, although that really seems unnecessary.
     Set<[Element, Integer]> entries => object
             satisfies AbstractSet<[Element, Integer]> {
 
@@ -77,12 +70,11 @@ interface Multiset<out Element>
 
         shared actual
         Integer size
-            =>  elements.size;
+            =>  keys.size;
 
         shared actual
         Iterator<[Element, Integer]> iterator()
-            =>  elements
-                    .map((element) => [element, occurrences(element)])
+            =>  keys.map((element) => [element, occurrences(element)])
                     .iterator();
 
         shared actual
@@ -93,5 +85,4 @@ interface Multiset<out Element>
         Integer hash
             =>  (super of Set<[Element, Integer]>).hash;
     };
-
 }
