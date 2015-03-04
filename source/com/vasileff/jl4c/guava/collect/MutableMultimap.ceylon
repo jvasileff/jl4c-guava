@@ -18,10 +18,8 @@ interface MutableMultimap<Key, Item>
     Collection<Item> replaceItems(Key key, {Item*} items);
 
     shared actual
-    Boolean remove(Key key, Item item) {
-        assert (is Object? item);
-        return delegate.remove(key, item);
-    }
+    Boolean remove(Key key, Item item)
+        => delegate.remove(key, item of Object?);
 
     shared actual
     void clear()

@@ -29,19 +29,15 @@ interface Multimap<out Key, out Item>
     shared formal
     Map<Key, {Item*}> asMap;
 
-    // TODO Ceylon inconvenience - has to be default so subclasses can choose this one?
+    //has to be default so satisfying types can choose this one
+    //https://github.com/ceylon/ceylon-spec/issues/1241
     // from Collection, entry is Key->Item (containsEntry in guava)
     shared actual default
-    Boolean contains(Object entry) {
-        if (is Key->Item entry) {
-            value key->item = entry;
-            assert(is Object? item);
-            return delegate.containsEntry(key, item);
-        }
-        else {
-            return false;
-        }
-    }
+    Boolean contains(Object entry)
+        =>  if (is Key->Item entry)
+            then delegate.containsEntry(
+                    entry.key, entry.item of Object?)
+            else false;
 
     // From Correspondence, key is Key (containsKey in guava)
     shared actual
