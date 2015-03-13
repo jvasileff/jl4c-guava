@@ -6,24 +6,22 @@ import com.google.common.collect {
 
 shared final
 class ImmutableMultiset<out Element>
-        ({Element*}|GuavaImmutableMultiset<out Element> es)
         satisfies Multiset<Element>
         given Element satisfies Object {
 
     shared actual
     GuavaImmutableMultiset<out Element> delegate;
 
-    // TODO use named constructors when possible 
-    // https://github.com/ceylon/ceylon-spec/issues/1225
-    if (is {Element*} es) {
+    shared new ImmutableMultiset({Element*} elements) {
         value builder = GIMSBuilder<Element>();
-        for (element in es) {
+        for (element in elements) {
             builder.add(element);
         }
-        delegate = builder.build();        
+        delegate = builder.build();
     }
-    else {
-        delegate = es;
+
+    shared new Wrap(GuavaImmutableMultiset<out Element> delegate) {
+        this.delegate = delegate;
     }
 
     shared actual

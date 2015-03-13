@@ -16,7 +16,7 @@ interface ImmutableMultimap<out Key, out Item>
 
     shared actual
     ImmutableMultiset<Key> keyMultiset
-        =>  ImmutableMultiset(delegate.keys());
+        =>  ImmutableMultiset.Wrap(delegate.keys());
 
     shared actual
     ImmutableSet<Key> keys
