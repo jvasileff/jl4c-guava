@@ -15,7 +15,7 @@ class LinkedHashMultimap<Key, Item>
             glhmmCreate<Key, Item>();
 
     shared
-    new LinkedHashMultimap(entries = {}) {
+    new (entries = {}) {
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);

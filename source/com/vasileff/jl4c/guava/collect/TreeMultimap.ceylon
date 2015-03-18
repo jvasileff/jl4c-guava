@@ -27,7 +27,7 @@ class TreeMultimap<Key, Item>
     Comparison compareItems(Item x, Item y);
 
     shared
-    new TreeMultimap(compareKeys, compareItems, entries = {}) {
+    new (compareKeys, compareItems, entries = {}) {
         Comparison compareKeys(Key x, Key y);
         Comparison compareItems(Item x, Item y);
         this.compareKeys = compareKeys;

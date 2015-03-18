@@ -12,7 +12,8 @@ class ImmutableMultiset<out Element>
     shared actual
     GuavaImmutableMultiset<out Element> delegate;
 
-    shared new ImmutableMultiset({Element*} elements) {
+    shared
+    new ({Element*} elements) {
         value builder = GIMSBuilder<Element>();
         for (element in elements) {
             builder.add(element);
@@ -20,7 +21,8 @@ class ImmutableMultiset<out Element>
         delegate = builder.build();
     }
 
-    shared new Wrap(GuavaImmutableMultiset<out Element> delegate) {
+    shared
+    new Wrap(GuavaImmutableMultiset<out Element> delegate) {
         this.delegate = delegate;
     }
 

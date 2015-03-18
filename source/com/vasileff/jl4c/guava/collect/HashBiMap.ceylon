@@ -14,7 +14,7 @@ class HashBiMap<Key, Item>
     GuavaHashBiMap<Key, Item> delegate = ghbmCreate<Key, Item>();
 
     shared
-    new HashBiMap(entries={}) {
+    new (entries={}) {
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);

@@ -18,7 +18,7 @@ class LinkedListMultimap<Key, Item>
             gllmmCreate<Key, Item>();
 
     shared
-    new LinkedListMultimap(entries = {}) {
+    new (entries = {}) {
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);

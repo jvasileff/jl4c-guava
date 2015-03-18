@@ -15,7 +15,7 @@ class HashMultimap<Key, Item>
             ghmmCreate<Key, Item>();
 
     shared
-    new HashMultimap(entries = {}) {
+    new (entries = {}) {
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);

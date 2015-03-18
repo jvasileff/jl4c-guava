@@ -15,7 +15,7 @@ class ArrayListMultimap<Key, Item>
             galmmCreate<Key, Item>();
 
     shared
-    new ArrayListMultimap(entries = {}) {
+    new (entries = {}) {
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);
