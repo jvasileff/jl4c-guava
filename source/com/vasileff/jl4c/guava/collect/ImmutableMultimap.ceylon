@@ -20,5 +20,5 @@ interface ImmutableMultimap<out Key, out Item>
 
     shared actual
     ImmutableSet<Key> keys
-        =>  ImmutableSet(delegate.keySet());
+        =>  ImmutableSet.Wrap(delegate.keySet());
 }

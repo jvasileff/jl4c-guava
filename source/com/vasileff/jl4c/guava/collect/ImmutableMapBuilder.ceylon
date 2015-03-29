@@ -27,5 +27,5 @@ class ImmutableMapBuilder<Key, Item>()
 
     shared
     ImmutableMap<Key, Item> build()
-        =>  ImmutableMap(delegate.build());
+        =>  ImmutableMap.Wrap(delegate.build());
 }

@@ -10,22 +10,24 @@ import com.google.common.collect {
 
 shared final
 class ImmutableSet<out Element>
-        ({Element*}|GuavaImmutableSet<out Element> elements)
         satisfies Set<Element>
         given Element satisfies Object {
 
     shared
     GuavaImmutableSet<out Element> delegate;
 
-    if (is {Element*} elements) {
+    shared
+    new ({Element*} elements) {
         value builder = GISBuilder<Element>();
         for (element in elements) {
             builder.add(element);
         }
         delegate = builder.build();
     }
-    else {
-        this.delegate = elements;
+
+    shared
+    new Wrap(GuavaImmutableSet<out Element> delegate) {
+        this.delegate = delegate;
     }
 
     shared actual

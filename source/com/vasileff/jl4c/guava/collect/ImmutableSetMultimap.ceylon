@@ -11,31 +11,33 @@ import com.vasileff.jl4c.guava.collect {
 
 shared final
 class ImmutableSetMultimap<out Key, out Item>
-    ({<Key->Item>*}|GuavaImmutableSetMultimap<out Key, out Item> entries)
-    satisfies SetMultimap<Key, Item> &
-              ImmutableMultimap<Key, Item>
-    given Key satisfies Object
-    given Item satisfies Object {
+        satisfies SetMultimap<Key, Item> &
+                  ImmutableMultimap<Key, Item>
+        given Key satisfies Object
+        given Item satisfies Object {
 
     shared actual
     GuavaImmutableSetMultimap<out Key, out Item> delegate;
 
-    if (is {<Key->Item>*} entries) {
+    shared
+    new ({<Key->Item>*} entries) {
         value builder = GISMMBuilder<Key, Item>();
         for (key->item in entries) {
             builder.put(key, item);
         }
         delegate = builder.build();
     }
-    else {
-        delegate = entries;
+
+    shared
+    new Wrap(GuavaImmutableSetMultimap<out Key, out Item> delegate) {
+        this.delegate = delegate;
     }
 
     shared actual
     ImmutableSet<Item> get(Object key)
         // Stupid google. Get takes K, not Object
         //=>  ImmutableSet(delegate.get(key));
-        =>  ImmutableSet(unsafeCast
+        =>  ImmutableSet.Wrap(unsafeCast
                 <GuavaImmutableSetMultimap<Object, out Item>>
                 (delegate).get(key));
 

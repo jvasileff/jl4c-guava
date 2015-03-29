@@ -6,22 +6,24 @@ import com.google.common.collect {
 
 shared final
 class ImmutableList<out Element>
-        (GuavaImmutableList<out Element>|{Element*} elements)
         satisfies List<Element>
         given Element satisfies Object {
 
     shared
     GuavaImmutableList<out Element> delegate;
 
-    if (is {Element*} elements) {
+    shared
+    new ({Element*} elements) {
         value builder = GILBuilder<Element>();
         for (element in elements) {
             builder.add(element);
         }
         delegate = builder.build();
     }
-    else {
-        delegate = elements;
+
+    shared
+    new Wrap(GuavaImmutableList<out Element> delegate) {
+        this.delegate = delegate;
     }
 
     // TODO trim, trimtrailing, trimleading, slice, initial, terminal, keys
@@ -49,7 +51,7 @@ class ImmutableList<out Element>
                     if (from <= 0 && to >= end) then
                         this
                     else if (to >= 0 && from <= end) then
-                        ImmutableList(delegate.subList(
+                        ImmutableList.Wrap(delegate.subList(
                                 largerInteger(from, 0),
                                 smallerInteger(to + 1, size)))
                     else
@@ -58,7 +60,7 @@ class ImmutableList<out Element>
                     if (end <= 0 && from >= end) then
                         this.reversed
                     else if (from >= 0 && to <= end) then
-                        ImmutableList(delegate.subList(
+                        ImmutableList.Wrap(delegate.subList(
                                 largerInteger(to, 0),
                                 smallerInteger(from + 1, size))
                                 .reverse())
@@ -99,7 +101,7 @@ class ImmutableList<out Element>
 
     shared actual
     ImmutableList<Element> reversed
-        =>  ImmutableList(delegate.reverse());
+        =>  ImmutableList.Wrap(delegate.reverse());
 
     shared actual
     Boolean equals(Object that)

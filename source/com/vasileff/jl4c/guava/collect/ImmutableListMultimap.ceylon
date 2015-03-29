@@ -11,7 +11,6 @@ import com.vasileff.jl4c.guava.collect {
 
 shared final
 class ImmutableListMultimap<out Key, out Item>
-    ({<Key->Item>*}|GuavaImmutableListMultimap<out Key, out Item> entries)
     satisfies ListMultimap<Key, Item> &
               ImmutableMultimap<Key, Item>
     given Key satisfies Object
@@ -20,22 +19,25 @@ class ImmutableListMultimap<out Key, out Item>
     shared actual
     GuavaImmutableListMultimap<out Key, out Item> delegate;
 
-    if (is {<Key->Item>*} entries) {
+    shared
+    new ({<Key->Item>*} entries) {
         value builder = GILMMBuilder<Key, Item>();
         for (key->item in entries) {
             builder.put(key, item);
         }
         delegate = builder.build();
     }
-    else {
-        delegate = entries;
+
+    shared
+    new Wrap(GuavaImmutableListMultimap<out Key, out Item> delegate) {
+        this.delegate = delegate;
     }
 
     shared actual
     ImmutableList<Item> get(Object key)
         // Stupid google. Get takes K, not Object
         //=>  ImmutableList(delegate.get(key));
-        =>  ImmutableList(unsafeCast
+        =>  ImmutableList.Wrap(unsafeCast
                 <GuavaImmutableListMultimap<Object, out Item>>
                 (delegate).get(key));
 

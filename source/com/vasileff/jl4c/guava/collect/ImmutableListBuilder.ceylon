@@ -24,5 +24,5 @@ class ImmutableListBuilder<Element>()
 
     shared
     ImmutableList<Element> build()
-        =>  ImmutableList(builder.build());
+        =>  ImmutableList.Wrap(builder.build());
 }

@@ -15,7 +15,6 @@ import java.util {
 
 shared final
 class ImmutableMap<out Key, out Item>
-        ({<Key->Item>*}|GuavaImmutableMap<out Key, out Item> entries)
         satisfies Map<Key, Item>
         given Key satisfies Object
         given Item satisfies Object {
@@ -23,15 +22,18 @@ class ImmutableMap<out Key, out Item>
     shared
     GuavaImmutableMap<out Key, out Item> delegate;
 
-    if (is {<Key->Item>*} entries) {
+    shared
+    new ({<Key->Item>*} entries) {
         value builder = GIMBuilder<Key, Item>();
         for (key->item in entries) {
             builder.put(key, item);
         }
         delegate = builder.build();
     }
-    else {
-        delegate = entries;
+
+    shared
+    new Wrap(GuavaImmutableMap<out Key, out Item> delegate) {
+        this.delegate = delegate;
     }
 
     shared actual
@@ -52,7 +54,7 @@ class ImmutableMap<out Key, out Item>
 
     shared actual
     ImmutableSet<Key> keys
-        =>  ImmutableSet(delegate.keySet());
+        =>  ImmutableSet.Wrap(delegate.keySet());
 
     shared actual
     Collection<Item> items
