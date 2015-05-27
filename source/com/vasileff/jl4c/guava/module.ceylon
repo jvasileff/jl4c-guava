@@ -1,3 +1,4 @@
+native("jvm")
 module com.vasileff.jl4c.guava "0.0.1" {
     import ceylon.interop.java "1.1.1";
     shared import java.base "7";
