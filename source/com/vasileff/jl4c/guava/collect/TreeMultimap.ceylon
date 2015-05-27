@@ -32,8 +32,10 @@ class TreeMultimap<Key, Item>
         Comparison compareItems(Item x, Item y);
         this.compareKeys = compareKeys;
         this.compareItems = compareItems;
-        delegate = gtmmCreate(JavaComparator(compareKeys),
-                              JavaComparator(compareItems));
+        // TODO type inference bug w/overloaded Java methods
+        delegate = gtmmCreate<Key, Item>(
+                JavaComparator(compareKeys),
+                JavaComparator(compareItems));
         {<Key->Item>*} entries;
         for (key->item in entries) {
             delegate.put(key, item);
