@@ -22,7 +22,7 @@ class ImmutableMultiset<out Element>
     }
 
     shared
-    new Wrap(GuavaImmutableMultiset<out Element> delegate) {
+    new wrap(GuavaImmutableMultiset<out Element> delegate) {
         this.delegate = delegate;
     }
 

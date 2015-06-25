@@ -25,21 +25,21 @@ class ImmutableBiMap<out Key, out Item>
     }
 
     shared
-    new Wrap(GuavaImmutableBiMap<out Key, out Item> delegate) {
+    new wrap(GuavaImmutableBiMap<out Key, out Item> delegate) {
         this.delegate = delegate;
     }
 
     shared actual
     ImmutableSet<Key> keys
-        =>  ImmutableSet.Wrap(delegate.keySet());
+        =>  ImmutableSet.wrap(delegate.keySet());
 
     shared actual
     ImmutableSet<Item> items
-        =>  ImmutableSet.Wrap(delegate.values());
+        =>  ImmutableSet.wrap(delegate.values());
 
     shared actual
     ImmutableBiMap<Item,Key> inverse
-        =>  ImmutableBiMap.Wrap(delegate.inverse());
+        =>  ImmutableBiMap.wrap(delegate.inverse());
 
     shared actual
     ImmutableBiMap<Key,Item> clone()

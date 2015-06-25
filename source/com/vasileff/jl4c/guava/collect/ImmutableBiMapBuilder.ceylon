@@ -31,5 +31,5 @@ class ImmutableBiMapBuilder<Key, Item>()
     ImmutableBiMap<Key, Item> build()
         // TODO: consider returning null on error, but nice thing about
         // exception is info about duplicate keys
-        =>  ImmutableBiMap.Wrap(delegate.build());
+        =>  ImmutableBiMap.wrap(delegate.build());
 }

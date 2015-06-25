@@ -22,7 +22,7 @@ class ImmutableList<out Element>
     }
 
     shared
-    new Wrap(GuavaImmutableList<out Element> delegate) {
+    new wrap(GuavaImmutableList<out Element> delegate) {
         this.delegate = delegate;
     }
 
@@ -51,7 +51,7 @@ class ImmutableList<out Element>
                     if (from <= 0 && to >= end) then
                         this
                     else if (to >= 0 && from <= end) then
-                        ImmutableList.Wrap(delegate.subList(
+                        ImmutableList.wrap(delegate.subList(
                                 largerInteger(from, 0),
                                 smallerInteger(to + 1, size)))
                     else
@@ -60,7 +60,7 @@ class ImmutableList<out Element>
                     if (end <= 0 && from >= end) then
                         this.reversed
                     else if (from >= 0 && to <= end) then
-                        ImmutableList.Wrap(delegate.subList(
+                        ImmutableList.wrap(delegate.subList(
                                 largerInteger(to, 0),
                                 smallerInteger(from + 1, size))
                                 .reverse())
@@ -101,7 +101,7 @@ class ImmutableList<out Element>
 
     shared actual
     ImmutableList<Element> reversed
-        =>  ImmutableList.Wrap(delegate.reverse());
+        =>  ImmutableList.wrap(delegate.reverse());
 
     shared actual
     Boolean equals(Object that)

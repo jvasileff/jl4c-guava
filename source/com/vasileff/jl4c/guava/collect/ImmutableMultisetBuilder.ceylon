@@ -37,5 +37,5 @@ class ImmutableMultisetBuilder<Element>()
 
     shared
     ImmutableMultiset<Element> build()
-        => ImmutableMultiset.Wrap(delegate.build());
+        => ImmutableMultiset.wrap(delegate.build());
 }

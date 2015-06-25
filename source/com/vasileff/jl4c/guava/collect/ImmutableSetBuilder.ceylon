@@ -30,5 +30,5 @@ class ImmutableSetBuilder<Element>()
 
     shared
     ImmutableSet<Element> build()
-        =>  ImmutableSet.Wrap(delegate.build());
+        =>  ImmutableSet.wrap(delegate.build());
 }

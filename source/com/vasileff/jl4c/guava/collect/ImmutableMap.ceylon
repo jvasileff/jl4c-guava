@@ -32,7 +32,7 @@ class ImmutableMap<out Key, out Item>
     }
 
     shared
-    new Wrap(GuavaImmutableMap<out Key, out Item> delegate) {
+    new wrap(GuavaImmutableMap<out Key, out Item> delegate) {
         this.delegate = delegate;
     }
 
@@ -54,7 +54,7 @@ class ImmutableMap<out Key, out Item>
 
     shared actual
     ImmutableSet<Key> keys
-        =>  ImmutableSet.Wrap(delegate.keySet());
+        =>  ImmutableSet.wrap(delegate.keySet());
 
     shared actual
     Collection<Item> items

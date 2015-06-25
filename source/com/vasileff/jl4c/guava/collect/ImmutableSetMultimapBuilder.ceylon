@@ -54,5 +54,5 @@ class ImmutableSetMultimapBuilder<Key, Item>()
 
     shared
     ImmutableSetMultimap<Key, Item> build()
-        =>  ImmutableSetMultimap.Wrap(delegate.build());
+        =>  ImmutableSetMultimap.wrap(delegate.build());
 }

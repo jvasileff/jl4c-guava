@@ -26,7 +26,7 @@ class ImmutableSet<out Element>
     }
 
     shared
-    new Wrap(GuavaImmutableSet<out Element> delegate) {
+    new wrap(GuavaImmutableSet<out Element> delegate) {
         this.delegate = delegate;
     }
 

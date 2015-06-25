@@ -29,7 +29,7 @@ class ImmutableSetMultimap<out Key, out Item>
     }
 
     shared
-    new Wrap(GuavaImmutableSetMultimap<out Key, out Item> delegate) {
+    new wrap(GuavaImmutableSetMultimap<out Key, out Item> delegate) {
         this.delegate = delegate;
     }
 
@@ -37,7 +37,7 @@ class ImmutableSetMultimap<out Key, out Item>
     ImmutableSet<Item> get(Object key)
         // Stupid google. Get takes K, not Object
         //=>  ImmutableSet(delegate.get(key));
-        =>  ImmutableSet.Wrap(unsafeCast
+        =>  ImmutableSet.wrap(unsafeCast
                 <GuavaImmutableSetMultimap<Object, out Item>>
                 (delegate).get(key));
 
