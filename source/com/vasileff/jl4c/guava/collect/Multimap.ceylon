@@ -16,7 +16,7 @@ import java.util {
 }
 
 shared
-interface Multimap<out Key, out Item> 
+interface Multimap<out Key, out Item>
         satisfies Collection<Key->Item> &
                   Correspondence<Object, Collection<Item>>
         given Key satisfies Object {
@@ -34,7 +34,7 @@ interface Multimap<out Key, out Item>
     // from Collection, entry is Key->Item (containsEntry in guava)
     shared actual default
     Boolean contains(Object entry)
-        =>  if (is Key->Item entry)
+        =>  if (is Object->Anything entry)
             then delegate.containsEntry(
                     entry.key, entry.item of Object?)
             else false;
