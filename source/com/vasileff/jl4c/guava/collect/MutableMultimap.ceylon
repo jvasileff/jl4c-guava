@@ -28,22 +28,4 @@ interface MutableMultimap<Key, Item>
     shared actual
     Boolean put(Key key, Item item)
         =>  delegate.put(key, item);
-
-    shared actual
-    Boolean putAll({<Key->Item>*} entries) {
-        variable value result = false;
-        for (key->item in entries) {
-            result = put(key, item) || result;
-        }
-        return result;
-    }
-
-    shared actual
-    Boolean putMultiple(Key key, {Item*} items) {
-        variable value result = false;
-        for (item in items) {
-            result = put(key, item) || result;
-        }
-        return result;
-    }
 }
