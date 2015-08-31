@@ -30,9 +30,9 @@ interface MutableMultimap<Key, Item>
         =>  delegate.put(key, item);
 
     shared actual
-    Boolean putAll(Multimap<Key, Item> multimap) {
+    Boolean putAll({<Key->Item>*} entries) {
         variable value result = false;
-        for (key->item in multimap) {
+        for (key->item in entries) {
             result = put(key, item) || result;
         }
         return result;

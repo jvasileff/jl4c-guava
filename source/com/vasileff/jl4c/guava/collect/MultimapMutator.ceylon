@@ -17,7 +17,7 @@ interface MultimapMutator<in Key, in Item>
     Boolean putMultiple(Key key, {Item*} items);
 
     shared formal
-    Boolean putAll(Multimap<Key, Item> multimap);
+    Boolean putAll({<Key->Item>*} entries);
 
     shared formal
     // TODO Objects in Guava interface???
