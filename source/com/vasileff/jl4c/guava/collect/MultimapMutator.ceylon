@@ -9,6 +9,10 @@ interface MultimapMutator<in Key, in Item>
     shared formal
     Boolean put(Key key, Item item);
 
+    shared default
+    Boolean putEntry(Key->Item entry)
+        =>  put(entry.key, entry.item);
+
     shared formal
     Boolean putMultiple(Key key, {Item*} items);
 
@@ -18,6 +22,10 @@ interface MultimapMutator<in Key, in Item>
     shared formal
     // TODO Objects in Guava interface???
     Boolean remove(Key key, Item item);
+
+    shared default
+    Boolean removeEntry(Key->Item entry)
+        =>  remove(entry.key, entry.item);
 
     shared formal
     // TODO Object param in Guava, remember return val
