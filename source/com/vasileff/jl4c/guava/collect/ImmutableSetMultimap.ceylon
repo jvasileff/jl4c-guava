@@ -55,4 +55,8 @@ class ImmutableSetMultimap<out Key, out Item>
     shared actual
     Integer hash
         =>  (super of Set<Key->Item>).hash;
+
+    shared actual
+    ImmutableSetMultimap<Item,Key> inverse
+        =>  ImmutableSetMultimap.wrap(delegate.inverse());
 }

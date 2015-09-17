@@ -21,4 +21,8 @@ interface ImmutableMultimap<out Key, out Item>
     shared actual
     ImmutableSet<Key> keys
         =>  ImmutableSet.wrap(delegate.keySet());
+
+    "Returns an immutable multimap which is the inverse of this one."
+    shared formal
+    ImmutableMultimap<Item, Key> inverse;
 }

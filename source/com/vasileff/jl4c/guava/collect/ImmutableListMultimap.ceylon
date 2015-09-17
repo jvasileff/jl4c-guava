@@ -45,6 +45,10 @@ class ImmutableListMultimap<out Key, out Item>
     ImmutableListMultimap<Key, Item> clone()
         =>  this;
 
+    shared actual
+    ImmutableListMultimap<Item,Key> inverse
+        =>  ImmutableListMultimap.wrap(delegate.inverse());
+
     // FIXME implement equals & hash in ListMultimap per Ceylon contract
     //shared actual
     //Boolean equals(Object that)
