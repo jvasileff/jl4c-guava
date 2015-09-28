@@ -38,11 +38,11 @@ class ImmutableBiMap<out Key, out Item>
         =>  ImmutableSet.wrap(delegate.values());
 
     shared actual
-    ImmutableBiMap<Item,Key> inverse
+    ImmutableBiMap<Item, Key> inverseView
         =>  ImmutableBiMap.wrap(delegate.inverse());
 
     shared actual
-    ImmutableBiMap<Key,Item> clone()
+    ImmutableBiMap<Key, Item> clone()
         =>  this;
 
     shared actual

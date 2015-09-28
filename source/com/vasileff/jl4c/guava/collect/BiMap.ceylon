@@ -57,5 +57,5 @@ interface BiMap<out Key, out Item>
                 .iterator();
 
     shared formal
-    BiMap<Item, Key> inverse;
+    BiMap<Item, Key> inverseView;
 }

@@ -33,7 +33,7 @@ interface MutableBiMap<Key, Item>
         => delegate.clear();
 
     shared actual
-    MutableBiMap<Item, Key> inverse
+    MutableBiMap<Item, Key> inverseView
         =>  MutableBiMapWrapper(delegate.inverse());
 
     shared actual formal
