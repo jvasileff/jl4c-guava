@@ -40,9 +40,8 @@ be used directly from Ceylon without wrappers.
 Initial implementations of several collection types are working, but are
 missing some functionality such as mutable views.
 
-The source code must be compiled against the latest development version of
-Ceylon, so a precompiled module will not be available until after Ceylon's
-next release.
+The initial release, v0.0.1, is [available](http://modules.ceylon-lang.org/modules/com.vasileff.jl4c.guava)
+on Ceylon Herd.
 
 ## License
 
