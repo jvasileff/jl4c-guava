@@ -1,7 +1,7 @@
 native("jvm")
-module com.vasileff.jl4c.guava "0.0.1" {
-    import ceylon.interop.java "1.2.0";
+module com.vasileff.jl4c.guava "0.0.2-121-SNAPSHOT" {
+    import ceylon.interop.java "1.2.1";
     shared import java.base "7";
-    shared import ceylon.collection "1.2.0";
+    shared import ceylon.collection "1.2.1";
     shared import "com.google.guava:guava" "18.0";
 }
