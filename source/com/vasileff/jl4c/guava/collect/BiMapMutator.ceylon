@@ -28,4 +28,7 @@ interface BiMapMutator<in Key, in Item>
     shared actual default
     void putAll({<Key->Item>*} entries)
         =>  super.putAll(entries);
+
+    shared actual formal
+    BiMapMutator<Key,Item> clone();
 }
