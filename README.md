@@ -40,7 +40,7 @@ be used directly from Ceylon without wrappers.
 Initial implementations of several collection types are working, but are
 missing some functionality such as mutable views.
 
-Version 0.0.2 for Ceylon 1.2.1 and Guava 19.0 is
+The latest version is
 [available](http://modules.ceylon-lang.org/modules/com.vasileff.jl4c.guava) on
 Ceylon Herd.
 
