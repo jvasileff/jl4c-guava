@@ -8,9 +8,9 @@ import com.google.common.collect {
 
 shared
 interface MutableListMultimap<Key, Item>
-        satisfies ListMultimap<Key, Item> &
-                  ListMultimapMutator<Key, Item> &
-                  MutableMultimap<Key, Item>
+        satisfies ListMultimap<Key, Item>
+                & ListMultimapMutator<Key, Item>
+                & MutableMultimap<Key, Item>
         given Key satisfies Object
         given Item satisfies Object {
 
